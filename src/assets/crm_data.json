@@ -1,0 +1,14 @@
+{
+  "users": [
+    { "email": "admin@crm.com", "password": "123456", "role": "superadmin" }
+  ],
+  "summary": {
+    "totalRevenue": 85000,
+    "activeCustomers": 128
+  },
+  "monthlyRevenue": [
+    { "month": "Jan", "amount": 5000 },
+    { "month": "Feb", "amount": 6500 },
+    { "month": "Mar", "amount": 7200 }
+  ]
+}

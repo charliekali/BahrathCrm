@@ -1,0 +1,28 @@
+<div class="dashboard-page">
+  <h2 class="title">Super Admin Dashboard</h2>
+
+  <div class="card-container">
+    <div class="card">
+      <h3>Total Revenue</h3>
+      <p class="value">${{ totalRevenue }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Active Customers</h3>
+      <p class="value">{{ activeCustomers }}</p>
+    </div>
+  </div>
+
+  <h3 class="subtitle">Month Wise Revenue</h3>
+
+  <div class="chart">
+    <div
+      class="bar"
+      *ngFor="let m of monthlyRevenue"
+      [style.height]="m.amount / 100 + 'px'"
+      [title]="m.amount | currency"
+    >
+      <span>{{ m.month }}</span>
+    </div>
+  </div>
+</div>
