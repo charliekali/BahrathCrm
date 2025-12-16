@@ -10,7 +10,7 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  stats: any = {};
   totalRevenue = 0;
   activeCustomers = 0;
   monthlyRevenue: any[] = [];
@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
       this.totalRevenue = d.summary.totalRevenue;
       this.activeCustomers = d.summary.activeCustomers;
       this.monthlyRevenue = d.monthlyRevenue;
+      this.stats = d.stats;
       this.cdr.detectChanges();
     });
   }

@@ -22,11 +22,11 @@ export class LoginComponent {
   login() {
      this.error = 'Invalid credentials or Access Required';
     this.data.getData().subscribe(d => {
-        console.log(d.user,"sdf")
       const user = d.users.find((u: any) =>
-        u.email === this.email && u.password === this.password
+        u.email === this.email && u.password === this.password,
+       
       );
-
+console.log(user,"sdf")
       if (!user) {
         this.error = 'Invalid credentials or Access Required';
         return;
@@ -34,6 +34,8 @@ export class LoginComponent {
 
       if (user.role === 'superadmin') {
         this.router.navigate(['/dashboard']);
+      } else {
+        this.router.navigate(['/sales-dashboard']);
       }
       this.cdr.detectChanges();
     });

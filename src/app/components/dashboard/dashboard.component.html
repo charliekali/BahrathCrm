@@ -25,4 +25,33 @@
       <span>{{ m.month }}</span>
     </div>
   </div>
+<h3 class="subtitle">System Overview</h3>
+
+  <div class="card-container">
+    <div class="card">
+      <h3>Organizations</h3>
+      <p class="value">{{ stats.organizations }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Users</h3>
+      <p class="value">{{ stats.users }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Leads</h3>
+      <p class="value">{{ stats.leads }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Active Subscriptions</h3>
+      <p class="value">{{ stats.subscriptions }}</p>
+    </div>
+
+    <div class="card">
+      <h3>MRR</h3>
+      <p class="value">${{ stats.mrr }}</p>
+    </div>
+  </div>
+
 </div>

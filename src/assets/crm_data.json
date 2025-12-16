@@ -1,14 +1,41 @@
 {
   "users": [
-    { "email": "admin@crm.com", "password": "123456", "role": "superadmin" }
+    { "email": "admin@crm.com", "password": "123456", "role": "superadmin", "name": "Super Admin", "org": "System" },
+    { "email": "sales@abc.com", "password": "123456", "role": "sales", "name": "Sales User", "org": "ABC Corp" }
   ],
+
   "summary": {
     "totalRevenue": 85000,
     "activeCustomers": 128
   },
+
   "monthlyRevenue": [
     { "month": "Jan", "amount": 5000 },
     { "month": "Feb", "amount": 6500 },
     { "month": "Mar", "amount": 7200 }
+  ],
+
+  "stats": {
+    "organizations": 6,
+    "users": 45,
+    "leads": 320,
+    "subscriptions": 5,
+    "mrr": 12000
+  },
+
+  "organizations": [
+    { "id": 1, "name": "ABC Corp", "plan": "Enterprise", "active": true, "storage": "50GB" },
+    { "id": 2, "name": "XYZ Ltd", "plan": "Basic", "active": false, "storage": "10GB" }
+  ],
+
+  "plans": [
+    { "name": "Basic", "price": 99, "active": true },
+    { "name": "Standard", "price": 199, "active": true },
+    { "name": "Enterprise", "price": 499, "active": false }
+  ],
+
+  "logs": [
+    { "user": "admin@crm.com", "action": "Login", "date": "2025-01-01" },
+    { "user": "admin@crm.com", "action": "Approved Organization", "date": "2025-01-02" }
   ]
 }

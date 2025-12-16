@@ -1,0 +1,17 @@
+<h2>Subscription & Billing</h2>
+
+<table>
+  <tr>
+    <th>Plan</th>
+    <th>Price</th>
+    <th>Active</th>
+  </tr>
+
+  <tr *ngFor="let p of plans">
+    <td>{{ p.name }}</td>
+    <td>${{ p.price }}</td>
+    <td>
+      <input type="checkbox" [(ngModel)]="p.active" />
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,24 @@
+<h2>User Management</h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Organization</th>
+  </tr>
+
+  <tr *ngFor="let u of users">
+    <td>{{ u.name }}</td>
+    <td>{{ u.email }}</td>
+    <td>
+      <select [(ngModel)]="u.role">
+        <option>admin</option>
+        <option>sales</option>
+        <option>marketing</option>
+        <option>viewer</option>
+      </select>
+    </td>
+    <td>{{ u.org }}</td>
+  </tr>
+</table>
