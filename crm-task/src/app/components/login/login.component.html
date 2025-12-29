@@ -1,0 +1,29 @@
+<div class="login-page">
+  <header class="app-header">
+    <h3>DataHaven</h3>
+  </header>
+
+  <div class="login-container">
+    <div class="login-box">
+      <h2>CRM Login</h2>
+
+      <div class="input-wrapper">
+        <span class="required">*</span>
+        <input type="email" placeholder="Email" [(ngModel)]="email" />
+      </div>
+
+      <div class="input-wrapper">
+        <span class="required">*</span>
+        <input type="password" placeholder="Password" [(ngModel)]="password" />
+      </div>
+
+      <button (click)="login()" [disabled]="!email || !password">Login</button>
+@if(error){<p class="error">{{ error }}</p>}
+      
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>© 2025 Your Company. All rights reserved.</p>
+  </footer>
+</div>

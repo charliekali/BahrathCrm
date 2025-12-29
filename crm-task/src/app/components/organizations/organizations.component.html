@@ -1,0 +1,23 @@
+<h2>Organization Management</h2>
+<table>
+  <tr>
+    <th>S.NO</th>
+    <th>Name</th>
+    <th>Plan</th>
+    <th>Storage</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+
+  @for(org of organizations; track $index){<tr>
+    <td>{{$index + 1}}</td>
+    <td>{{ org.name }}</td>
+    <td>{{ org.plan }}</td>
+    <td>{{ org.storage }}</td>
+    <td>{{ org.active ? 'Active' : 'Pending' }}</td>
+    <td>
+      <button (click)="approve(org)">Approve</button>
+      <button (click)="reject(org)">Reject</button>
+    </td>
+  </tr>}
+</table>

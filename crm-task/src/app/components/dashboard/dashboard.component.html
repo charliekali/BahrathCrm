@@ -1,0 +1,57 @@
+<div class="dashboard-page">
+  <h2 class="title">Super Admin Dashboard</h2>
+
+  <div class="card-container">
+    <div class="card">
+      <h3>Total Revenue</h3>
+      <p class="value">${{ totalRevenue }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Active Customers</h3>
+      <p class="value">{{ activeCustomers }}</p>
+    </div>
+  </div>
+
+  <h3 class="subtitle">Month Wise Revenue</h3>
+
+  <div class="chart">
+    <div
+      class="bar"
+      *ngFor="let m of monthlyRevenue"
+      [style.height]="m.amount / 100 + 'px'"
+      [title]="m.amount | currency"
+    >
+      <span>{{ m.month }}</span>
+    </div>
+  </div>
+<h3 class="subtitle">System Overview</h3>
+
+  <div class="card-container">
+    <div class="card">
+      <h3>Organizations</h3>
+      <p class="value">{{ stats.organizations }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Users</h3>
+      <p class="value">{{ stats.users }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Total Leads</h3>
+      <p class="value">{{ stats.leads }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Active Subscriptions</h3>
+      <p class="value">{{ stats.subscriptions }}</p>
+    </div>
+
+    <div class="card">
+      <h3>MRR</h3>
+      <p class="value">${{ stats.mrr }}</p>
+    </div>
+  </div>
+
+</div>

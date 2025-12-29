@@ -1,0 +1,17 @@
+<h2>System Logs & Audit Trail</h2>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Action</th>
+    <th>Date</th>
+  </tr>
+
+  <tr *ngFor="let log of logs">
+    <td>{{ log.user }}</td>
+    <td>{{ log.action }}</td>
+    <td>{{ log.date }}</td>
+  </tr>
+</table>
+
+<button (click)="exportCSV()">Export CSV</button>
