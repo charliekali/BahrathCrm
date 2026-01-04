@@ -24,7 +24,6 @@ export class LoginComponent {
     this.data.getData().subscribe(d => {
       const user = d.users.find((u: any) =>
         u.email === this.email && u.password === this.password,
-       
       );
 console.log(user,"sdf")
       if (!user) {
