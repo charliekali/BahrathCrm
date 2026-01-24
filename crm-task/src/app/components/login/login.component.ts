@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,27 +18,37 @@ export class LoginComponent {
   password = '';
   error = '';
 
-  constructor(private data: DataService, private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private data: DataService,
+    private auth: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   login() {
-     this.error = 'Invalid credentials or Access Required';
+    this.error = '';
+
     this.data.getData().subscribe(d => {
       const user = d.users.find((u: any) =>
-        u.email === this.email && u.password === this.password,
+        u.email === this.email && u.password === this.password
       );
-console.log(user,"sdf")
+
       if (!user) {
         this.error = 'Invalid credentials or Access Required';
         return;
       }
 
+      // ✅ Store logged-in user centrally
+      this.auth.login(user);
+
+      // ✅ Role-based redirect
       if (user.role === 'superadmin') {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard']); // super admin dashboard
       } else {
-        this.router.navigate(['/sales-dashboard']);
+        this.router.navigate(['/sales-dashboard']); // normal users
       }
+
       this.cdr.detectChanges();
     });
   }
-
 }

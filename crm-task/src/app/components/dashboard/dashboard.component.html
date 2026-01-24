@@ -4,7 +4,7 @@
   <div class="card-container">
     <div class="card">
       <h3>Total Revenue</h3>
-      <p class="value">${{ totalRevenue }}</p>
+      <p class="value">{{ totalRevenue | currency }}</p>
     </div>
 
     <div class="card">
@@ -50,7 +50,7 @@
 
     <div class="card">
       <h3>MRR</h3>
-      <p class="value">${{ stats.mrr }}</p>
+      <p class="value">{{ stats.mrr | currency }}</p>
     </div>
   </div>
 

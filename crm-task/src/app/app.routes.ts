@@ -7,30 +7,32 @@ import { UserManagementComponent } from './components/user/user-management.compo
 import { SubscriptionComponent } from './components/subscription/subscription.component';
 import { SystemLogsComponent } from './components/system-logs/system-logs.component';
 import { SalesDashboardComponent } from './components/sales-dashboard/sales-dashboard.component';
+import { AuthGuard } from './services/auth.guard';
+import { SuperAdminGuard } from './services/super-admin.guard';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
+
+  { path: 'login', component: LoginComponent },
 
   {
     path: '',
     component: SuperAdminLayoutComponent,
+    canActivate: [SuperAdminGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'organizations', component: OrganizationsComponent },
       { path: 'users', component: UserManagementComponent },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'logs', component: SystemLogsComponent }
-
     ]
   },
-
   {
     path: '',
-    component: SalesDashboardComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'sales-dashboard', component: SalesDashboardComponent }
     ]
   },
-
-  { path: '**', redirectTo: '' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }
 ];
