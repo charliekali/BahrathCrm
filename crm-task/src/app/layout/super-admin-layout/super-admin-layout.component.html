@@ -1,7 +1,6 @@
 <div class="layout">
   <aside class="sidebar">
     <h3>DataHaven</h3>
-
     <a routerLink="/dashboard">Dashboard</a>
     <a routerLink="/organizations">Organizations</a>
     <a routerLink="/users">Users</a>
@@ -11,6 +10,7 @@
   </aside>
 
   <section class="content">
+    <app-notifications></app-notifications>
     <router-outlet></router-outlet>
   </section>
 </div>

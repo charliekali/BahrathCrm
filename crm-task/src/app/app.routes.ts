@@ -8,11 +8,12 @@ import { UserManagementComponent } from './components/user/user-management.compo
 import { SubscriptionComponent } from './components/subscription/subscription.component';
 import { SystemLogsComponent } from './components/system-logs/system-logs.component';
 import { SalesDashboardComponent } from './components/sales-dashboard/sales-dashboard.component';
-
 import { AuthGuard } from './services/auth.guard';
 import { SuperAdminGuard } from './services/super-admin.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { SalesLayoutComponent } from './layout/sales_layout/sales-layout.component';
+import { not } from 'rxjs/internal/util/not';
+import { NotificationsComponent } from './components/notification/notification.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,6 +30,9 @@ export const routes: Routes = [
         canActivate: [PermissionGuard],
         data: { module: 'users', permission: 'read' }
       },
+      {path: 'leads',
+      loadComponent: () => import('./components/leads/leads.component').then(m => m.LeadsComponent)
+    },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'logs', component: SystemLogsComponent }
     ]
@@ -55,6 +59,9 @@ export const routes: Routes = [
   canActivate: [PermissionGuard],
   data: { module: 'leads', permission: 'read' }
 },
+{path: 'notifications',
+      loadComponent: () => import('./components/notification/notification.component').then(m => m.NotificationsComponent)
+    },
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
   ]
 },

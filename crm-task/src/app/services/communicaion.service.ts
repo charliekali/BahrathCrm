@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Lead } from './lead.service';
+import { NotificationService } from './notification.service';
 
 export interface Message {
   id: number;
@@ -21,6 +22,8 @@ export class CommunicationService {
 
   private messageId = 1;
 
+  constructor(private notifService: NotificationService) {}
+
   sendMessage(lead: Lead, content: string, type: 'Email' | 'SMS' = 'Email') {
     const message: Message = {
       id: this.messageId++,
@@ -32,6 +35,9 @@ export class CommunicationService {
     };
     this.messages.push(message);
     this.messagesSubject.next(this.messages);
+
+    // Notification
+    this.notifService.addNotification(`Message sent to "${lead.name}": "${content}"`, '/sales/communication');
   }
 
   getMessagesForLead(leadId: number) {
