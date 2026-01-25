@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- needed for ngModel
+import { FormsModule } from '@angular/forms';
 import { LeadService, Lead } from '../../services/lead.service';
 
 @Component({
   selector: 'app-leads',
-  standalone: true, // important in Angular 17+
-  imports: [CommonModule, FormsModule], // import needed modules
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './leads.component.html',
   styleUrls: ['./leads.component.css']
 })
@@ -16,13 +16,28 @@ export class LeadsComponent {
   email = '';
 
   constructor(private leadService: LeadService) {
+    // Load initial leads
     this.leads = this.leadService.getAllLeads();
+
+    // Subscribe to live updates
     this.leadService.leads$.subscribe(data => this.leads = data);
   }
 
+  // Add a new lead
   addLead() {
     if (!this.name || !this.email) return;
-    this.leadService.createLead({ name: this.name, email: this.email });
+
+    const newLead: Lead = {
+      id: this.leads.length + 1,
+      name: this.name,
+      email: this.email,
+      status: 'New',
+      assignedTo: null,
+      autoAssigned: false, 
+      nextFollowUp: undefined
+    };
+
+    this.leadService.createLead(newLead);
     this.name = '';
     this.email = '';
   }
@@ -30,8 +45,10 @@ export class LeadsComponent {
   changeStatus(lead: Lead, status: Lead['status']) {
     this.leadService.updateLead(lead.id, { status });
   }
-
   assignLead(lead: Lead, userEmail: string) {
     this.leadService.assignLead(lead.id, userEmail);
+  }
+  unassignLead(lead: Lead) {
+    this.leadService.assignLead(lead.id, null);
   }
 }

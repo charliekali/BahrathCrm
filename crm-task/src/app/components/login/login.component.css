@@ -6,8 +6,6 @@
   background: url('https://www.shutterstock.com/image-photo/crm-customer-relationship-management-concept-600nw-2326122091.jpg') no-repeat center center;
   background-size: cover;
 }
-
-/* Header */
 .app-header {
   height: 60px;
   display: flex;
@@ -35,8 +33,6 @@
   width: 40px;
   object-fit: contain;
 }
-
-/* Footer */
 .app-footer {
   height: 40px;
   background-color: rgba(5, 36, 68, 0.85);

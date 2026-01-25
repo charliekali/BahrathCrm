@@ -5,63 +5,61 @@ export interface Lead {
   id: number;
   name: string;
   email: string;
-  phone?: string;
   status: 'New' | 'Contacted' | 'Qualified' | 'Closed';
+  assignedTo: string | null;
   source?: string;
-  assignedTo?: string;
-  tags?: string[];
   notes?: string;
+  nextFollowUp?: string;    // new property for follow-up date
+  autoAssigned?: boolean;    // new property to mark auto-assigned leads
 }
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeadService {
-
-  private leads: Lead[] = [];
   private leadsSubject = new BehaviorSubject<Lead[]>([]);
-
   leads$ = this.leadsSubject.asObservable();
+  private leads: Lead[] = [];
+  private salesUsers = ['sales@abc.com']; // can extend to multiple sales users
 
-  private idCounter = 1;
-
-  constructor() {}
-
-  createLead(lead: Partial<Lead>) {
-    const newLead: Lead = {
-      id: this.idCounter++,
-      status: 'New',
-      ...lead
-    } as Lead;
-    this.leads.push(newLead);
+  constructor() {
+    this.leads = [
+      { id: 1, name: 'Lead 1', email: 'lead1@example.com', status: 'New', assignedTo: null },
+      { id: 2, name: 'Lead 2', email: 'lead2@example.com', status: 'Contacted', assignedTo: 'sales@abc.com', nextFollowUp: '2026-01-28' },
+    ];
     this.leadsSubject.next(this.leads);
-    return newLead;
-  }
-
-  updateLead(id: number, updates: Partial<Lead>) {
-    const index = this.leads.findIndex(l => l.id === id);
-    if (index > -1) {
-      this.leads[index] = { ...this.leads[index], ...updates };
-      this.leadsSubject.next(this.leads);
-      return this.leads[index];
-    }
-    return null;
-  }
-
-  getLead(id: number) {
-    return this.leads.find(l => l.id === id) || null;
   }
 
   getAllLeads() {
     return this.leads;
   }
 
-  deleteLead(id: number) {
-    this.leads = this.leads.filter(l => l.id !== id);
+  createLead(lead: Lead) {
+    const assignedTo = this.salesUsers.length ? this.salesUsers[0] : null;
+    this.leads.push({ ...lead, assignedTo, nextFollowUp: this.getNextFollowUp() });
     this.leadsSubject.next(this.leads);
   }
 
-  assignLead(id: number, userEmail: string) {
-    return this.updateLead(id, { assignedTo: userEmail });
+  updateLead(id: number, update: Partial<Lead>) {
+    const index = this.leads.findIndex(l => l.id === id);
+    if (index !== -1) {
+      this.leads[index] = { ...this.leads[index], ...update };
+      this.leadsSubject.next(this.leads);
+    }
+  }
+
+  assignLead(id: number, email: string | null) {
+    this.updateLead(id, { assignedTo: email, nextFollowUp: email ? this.getNextFollowUp() : undefined });
+  }
+
+  unassignLead(id: number) {
+    this.assignLead(id, null);
+  }
+
+  private getNextFollowUp(): string {
+    const d = new Date();
+    d.setDate(d.getDate() + 1); // default next day follow-up
+    return d.toISOString().split('T')[0];
   }
 }

@@ -41,7 +41,7 @@ export class LoginComponent {
       if (user.role === 'superadmin') {
         this.router.navigate(['/dashboard']);
       } else {
-        this.router.navigate(['/sales-dashboard']);
+        this.router.navigate(['/sales/dashboard']);
       }
 
       this.cdr.detectChanges();
