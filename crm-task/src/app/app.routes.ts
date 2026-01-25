@@ -34,7 +34,6 @@ export const routes: Routes = [
     ]
   },
 
-//  SALES dashboard routes
 {
   path: 'sales',
   component: SalesLayoutComponent,
@@ -54,9 +53,9 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./components/communication/communication.component').then(m => m.CommunicationComponent),
   canActivate: [PermissionGuard],
-  data: { module: 'leads', permission: 'read' } // sales users can access
+  data: { module: 'leads', permission: 'read' }
 },
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' } // default inside sales layout
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
   ]
 },
 

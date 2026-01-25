@@ -16,14 +16,9 @@ export class LeadsComponent {
   email = '';
 
   constructor(private leadService: LeadService) {
-    // Load initial leads
     this.leads = this.leadService.getAllLeads();
-
-    // Subscribe to live updates
     this.leadService.leads$.subscribe(data => this.leads = data);
   }
-
-  // Add a new lead
   addLead() {
     if (!this.name || !this.email) return;
 

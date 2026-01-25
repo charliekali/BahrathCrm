@@ -72,15 +72,11 @@ export class CommunicationComponent {
 
   sendMessage() {
     if (!this.selectedLeadId || !this.messageContent.trim()) return;
-
-    // Convert selectedLeadId to number (in case it's string from ngModel)
     const leadId = Number(this.selectedLeadId);
     const lead = this.leads.find(l => l.id === leadId);
     if (!lead) return;
 
     this.commService.sendMessage(lead, this.messageContent, 'Email');
-
-    // Reset form
     this.messageContent = '';
     this.selectedLeadId = null;
   }

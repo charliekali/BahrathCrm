@@ -9,8 +9,8 @@ export interface Lead {
   assignedTo: string | null;
   source?: string;
   notes?: string;
-  nextFollowUp?: string;    // new property for follow-up date
-  autoAssigned?: boolean;    // new property to mark auto-assigned leads
+  nextFollowUp?: string;
+  autoAssigned?: boolean;
 }
 
 
@@ -21,7 +21,7 @@ export class LeadService {
   private leadsSubject = new BehaviorSubject<Lead[]>([]);
   leads$ = this.leadsSubject.asObservable();
   private leads: Lead[] = [];
-  private salesUsers = ['sales@abc.com']; // can extend to multiple sales users
+  private salesUsers = ['sales@abc.com'];
 
   constructor() {
     this.leads = [
@@ -59,7 +59,7 @@ export class LeadService {
 
   private getNextFollowUp(): string {
     const d = new Date();
-    d.setDate(d.getDate() + 1); // default next day follow-up
+    d.setDate(d.getDate() + 1);
     return d.toISOString().split('T')[0];
   }
 }
