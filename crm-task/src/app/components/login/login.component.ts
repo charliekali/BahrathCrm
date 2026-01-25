@@ -37,15 +37,11 @@ export class LoginComponent {
         this.error = 'Invalid credentials or Access Required';
         return;
       }
-
-      // ✅ Store logged-in user centrally
       this.auth.login(user);
-
-      // ✅ Role-based redirect
       if (user.role === 'superadmin') {
-        this.router.navigate(['/dashboard']); // super admin dashboard
+        this.router.navigate(['/dashboard']);
       } else {
-        this.router.navigate(['/sales-dashboard']); // normal users
+        this.router.navigate(['/sales-dashboard']);
       }
 
       this.cdr.detectChanges();

@@ -1,0 +1,63 @@
+<div class="leads-container">
+  <h2 class="leads-container_title">Leads</h2>
+
+  <!-- Lead Form -->
+  <form class="lead-form" (submit)="$event.preventDefault(); addLead()">
+    <input
+      [(ngModel)]="name"
+      name="leadName"
+      placeholder="Name"
+      class="lead-form__input"
+    />
+    <input
+      [(ngModel)]="email"
+      name="leadEmail"
+      placeholder="Email"
+      class="lead-form__input"
+    />
+    <button type="submit" class="lead-form__button">Add Lead</button>
+  </form>
+
+  <!-- Leads Table -->
+  <table class="leads-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Assigned To</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lead of leads">
+        <td>{{ lead.id }}</td>
+        <td>{{ lead.name }}</td>
+        <td>{{ lead.email }}</td>
+        <td>
+          <select
+            [(ngModel)]="lead.status"
+            name="status-{{ lead.id }}"
+            (change)="changeStatus(lead, lead.status)"
+            class="status-select"
+          >
+            <option value="New">New</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Qualified">Qualified</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </td>
+        <td>{{ lead.assignedTo || '-' }}</td>
+        <td>
+          <button
+            (click)="assignLead(lead, 'sales@abc.com')"
+            class="assign-btn"
+          >
+            Assign to Sales
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

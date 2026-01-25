@@ -9,9 +9,9 @@ import { SystemLogsComponent } from './components/system-logs/system-logs.compon
 import { SalesDashboardComponent } from './components/sales-dashboard/sales-dashboard.component';
 import { AuthGuard } from './services/auth.guard';
 import { SuperAdminGuard } from './services/super-admin.guard';
+import { PermissionGuard } from './services/permission.guard';
 
 export const routes: Routes = [
-
   { path: 'login', component: LoginComponent },
 
   {
@@ -21,18 +21,36 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'organizations', component: OrganizationsComponent },
-      { path: 'users', component: UserManagementComponent },
+      {
+        path: 'users',
+        component: UserManagementComponent,
+        canActivate: [PermissionGuard],
+        data: { module: 'users', permission: 'read' }
+      },
       { path: 'subscriptions', component: SubscriptionComponent },
       { path: 'logs', component: SystemLogsComponent }
     ]
   },
+
   {
     path: '',
     canActivate: [AuthGuard],
     children: [
-      { path: 'sales-dashboard', component: SalesDashboardComponent }
+      {
+        path: 'sales-dashboard',
+        component: SalesDashboardComponent,
+        canActivate: [PermissionGuard],
+        data: { module: 'leads', permission: 'read' }
+      },
+      {
+        path: 'leads',
+        loadComponent: () => import('./components/leads/leads.component').then(m => m.LeadsComponent),
+        canActivate: [PermissionGuard],
+        data: { module: 'leads', permission: 'read' }
+      }
     ]
   },
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];

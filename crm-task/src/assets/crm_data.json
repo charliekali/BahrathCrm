@@ -1,8 +1,16 @@
 {
   "users": [
     { "email": "admin@crm.com", "password": "123456", "role": "superadmin", "name": "Super Admin", "org": "System" },
-    { "email": "sales@abc.com", "password": "123456", "role": "sales", "name": "Sales User", "org": "ABC Corp" }
-  ],
+    {
+  "email": "sales@abc.com",
+  "password": "123456",
+  "role": "sales",
+  "name": "Sales User",
+  "org": "ABC Corp",
+  "permissions": {
+    "leads": ["read"],
+    "deals": ["read"]
+  }}],
 
   "summary": {
     "totalRevenue": 85000,

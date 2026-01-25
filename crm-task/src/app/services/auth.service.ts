@@ -1,6 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { RbacService, Role, ModuleName } from './rbac.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,10 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   private isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object,
+    private rbac: RbacService
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
 
     if (this.isBrowser) {
@@ -41,8 +45,8 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  getRole(): string | null {
-    return this.getCurrentUser()?.role || null;
+  getRole(): Role | null {
+    return this.getCurrentUser()?.role ?? null;
   }
 
   isSuperAdmin(): boolean {
@@ -51,5 +55,13 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.getCurrentUser();
+  }
+
+  hasPermission(module: string, permission: string): boolean {
+    const role = this.getRole();
+    if (!role) return false;
+    const mod = module as ModuleName;
+
+    return this.rbac.hasPermission(role, mod, permission);
   }
 }
